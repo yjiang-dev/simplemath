@@ -1,0 +1,19 @@
+syntax = "proto3";
+package api;
+
+// this is the request data for GreatCommonDivisor
+message GCDRequest {
+    int32 first = 1;    // the first number
+    int32 second = 2;   // the second number
+}
+
+// this is the response data for GreatCommonDivisor
+message GCDResponse {
+    int32 result = 1;   // the result
+}
+
+// this is the service for simplemath
+service SimpleMath {
+    // this is the interface for greatest common divisor
+    rpc GreatCommonDivisor (GCDRequest) returns (GCDResponse) {}
+}
