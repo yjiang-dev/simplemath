@@ -8,6 +8,7 @@ import (
 	pb "github.com/yjiang-dev/simplemath/api"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials"
 )
 
 const (
@@ -15,20 +16,19 @@ const (
 )
 
 func GreatCommonDivisor(first, second string) {
-	// get a connection
-	conn, err := grpc.Dial(address, grpc.WithInsecure())
+	// create the client TLS credentials
+	creds, err := credentials.NewClientTLSFromFile("../cert/server.crt", "")
+	// initiate a connection with the server using creds
+	conn, err := grpc.Dial(address, grpc.WithTransportCredentials(creds))
 	if err != nil {
 		log.Fatalf("did not connect: %v", err)
 	}
 	defer conn.Close()
-	// create a client
 	c := pb.NewSimpleMathClient(conn)
 	a, _ := strconv.ParseInt(first, 10, 32)
 	b, _ := strconv.ParseInt(second, 10, 32)
-	// create a ctx
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
-	// remote call
 	r, err := c.GreatCommonDivisor(ctx, &pb.GCDRequest{First: int32(a), Second: int32(b)})
 	if err != nil {
 		log.Fatalf("could not compute: %v", err)
