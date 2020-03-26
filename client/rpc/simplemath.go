@@ -17,9 +17,33 @@ const (
 	address = "localhost:50051"
 )
 
+// AuthItem holds the username/password
+type AuthItem struct {
+	Username string
+	Password string
+}
+
+// GetRequestMetadata gets the current request metadata
+func (a *AuthItem) GetRequestMetadata(context.Context, ...string) (map[string]string, error) {
+	return map[string]string{
+		"username": a.Username,
+		"password": a.Password,
+	}, nil
+}
+
+// RequireTransportSecurity indicates whether the credentials requires transport security
+func (a *AuthItem) RequireTransportSecurity() bool {
+	return true
+}
+
 func getGRPCConn() (conn *grpc.ClientConn, err error) {
+	// Setup the username/password
+	auth := AuthItem{
+		Username: "valineliu_abc",
+		Password: "root",
+	}
 	creds, err := credentials.NewClientTLSFromFile("../cert/server.crt", "")
-	return grpc.Dial(address, grpc.WithTransportCredentials(creds))
+	return grpc.Dial(address, grpc.WithTransportCredentials(creds), grpc.WithPerRPCCredentials(&auth))
 }
 
 // GetFibonacci method
