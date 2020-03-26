@@ -20,6 +20,24 @@ func main() {
 			os.Exit(1)
 		}
 		rpc.GreatCommonDivisor(os.Args[2], os.Args[3])
+	case "fibo":
+		if len(os.Args) < 3 {
+			usage()
+			os.Exit(1)
+		}
+		rpc.GetFibonacci(os.Args[2])
+	case "stat":
+		if len(os.Args) < 3 {
+			usage()
+			os.Exit(1)
+		}
+		rpc.Statistics(os.Args[2])
+	case "prime":
+		if len(os.Args) < 3 {
+			usage()
+			os.Exit(1)
+		}
+		rpc.PrimeFactorization(os.Args[2])
 	default:
 		usage()
 		os.Exit(1)

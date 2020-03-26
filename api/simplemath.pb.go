@@ -112,26 +112,305 @@ func (m *GCDResponse) GetResult() int32 {
 	return 0
 }
 
+// messages for fibonacci
+type FibonacciRequest struct {
+	Count                int32    `protobuf:"varint,1,opt,name=count,proto3" json:"count,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *FibonacciRequest) Reset()         { *m = FibonacciRequest{} }
+func (m *FibonacciRequest) String() string { return proto.CompactTextString(m) }
+func (*FibonacciRequest) ProtoMessage()    {}
+func (*FibonacciRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_e577c6f8a1944023, []int{2}
+}
+
+func (m *FibonacciRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_FibonacciRequest.Unmarshal(m, b)
+}
+func (m *FibonacciRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_FibonacciRequest.Marshal(b, m, deterministic)
+}
+func (m *FibonacciRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_FibonacciRequest.Merge(m, src)
+}
+func (m *FibonacciRequest) XXX_Size() int {
+	return xxx_messageInfo_FibonacciRequest.Size(m)
+}
+func (m *FibonacciRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_FibonacciRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_FibonacciRequest proto.InternalMessageInfo
+
+func (m *FibonacciRequest) GetCount() int32 {
+	if m != nil {
+		return m.Count
+	}
+	return 0
+}
+
+type FibonacciResponse struct {
+	Result               int32    `protobuf:"varint,1,opt,name=result,proto3" json:"result,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *FibonacciResponse) Reset()         { *m = FibonacciResponse{} }
+func (m *FibonacciResponse) String() string { return proto.CompactTextString(m) }
+func (*FibonacciResponse) ProtoMessage()    {}
+func (*FibonacciResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_e577c6f8a1944023, []int{3}
+}
+
+func (m *FibonacciResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_FibonacciResponse.Unmarshal(m, b)
+}
+func (m *FibonacciResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_FibonacciResponse.Marshal(b, m, deterministic)
+}
+func (m *FibonacciResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_FibonacciResponse.Merge(m, src)
+}
+func (m *FibonacciResponse) XXX_Size() int {
+	return xxx_messageInfo_FibonacciResponse.Size(m)
+}
+func (m *FibonacciResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_FibonacciResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_FibonacciResponse proto.InternalMessageInfo
+
+func (m *FibonacciResponse) GetResult() int32 {
+	if m != nil {
+		return m.Result
+	}
+	return 0
+}
+
+// messages for statistics
+type StatisticsRequest struct {
+	Number               int32    `protobuf:"varint,1,opt,name=number,proto3" json:"number,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *StatisticsRequest) Reset()         { *m = StatisticsRequest{} }
+func (m *StatisticsRequest) String() string { return proto.CompactTextString(m) }
+func (*StatisticsRequest) ProtoMessage()    {}
+func (*StatisticsRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_e577c6f8a1944023, []int{4}
+}
+
+func (m *StatisticsRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_StatisticsRequest.Unmarshal(m, b)
+}
+func (m *StatisticsRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_StatisticsRequest.Marshal(b, m, deterministic)
+}
+func (m *StatisticsRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_StatisticsRequest.Merge(m, src)
+}
+func (m *StatisticsRequest) XXX_Size() int {
+	return xxx_messageInfo_StatisticsRequest.Size(m)
+}
+func (m *StatisticsRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_StatisticsRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_StatisticsRequest proto.InternalMessageInfo
+
+func (m *StatisticsRequest) GetNumber() int32 {
+	if m != nil {
+		return m.Number
+	}
+	return 0
+}
+
+type StatisticsResponse struct {
+	Count                int32    `protobuf:"varint,1,opt,name=count,proto3" json:"count,omitempty"`
+	Maximum              int32    `protobuf:"varint,2,opt,name=maximum,proto3" json:"maximum,omitempty"`
+	Minimum              int32    `protobuf:"varint,3,opt,name=minimum,proto3" json:"minimum,omitempty"`
+	Average              float32  `protobuf:"fixed32,4,opt,name=average,proto3" json:"average,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *StatisticsResponse) Reset()         { *m = StatisticsResponse{} }
+func (m *StatisticsResponse) String() string { return proto.CompactTextString(m) }
+func (*StatisticsResponse) ProtoMessage()    {}
+func (*StatisticsResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_e577c6f8a1944023, []int{5}
+}
+
+func (m *StatisticsResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_StatisticsResponse.Unmarshal(m, b)
+}
+func (m *StatisticsResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_StatisticsResponse.Marshal(b, m, deterministic)
+}
+func (m *StatisticsResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_StatisticsResponse.Merge(m, src)
+}
+func (m *StatisticsResponse) XXX_Size() int {
+	return xxx_messageInfo_StatisticsResponse.Size(m)
+}
+func (m *StatisticsResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_StatisticsResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_StatisticsResponse proto.InternalMessageInfo
+
+func (m *StatisticsResponse) GetCount() int32 {
+	if m != nil {
+		return m.Count
+	}
+	return 0
+}
+
+func (m *StatisticsResponse) GetMaximum() int32 {
+	if m != nil {
+		return m.Maximum
+	}
+	return 0
+}
+
+func (m *StatisticsResponse) GetMinimum() int32 {
+	if m != nil {
+		return m.Minimum
+	}
+	return 0
+}
+
+func (m *StatisticsResponse) GetAverage() float32 {
+	if m != nil {
+		return m.Average
+	}
+	return 0
+}
+
+// messages for prime factorization
+type PrimeFactorizationRequest struct {
+	Number               int32    `protobuf:"varint,1,opt,name=number,proto3" json:"number,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *PrimeFactorizationRequest) Reset()         { *m = PrimeFactorizationRequest{} }
+func (m *PrimeFactorizationRequest) String() string { return proto.CompactTextString(m) }
+func (*PrimeFactorizationRequest) ProtoMessage()    {}
+func (*PrimeFactorizationRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_e577c6f8a1944023, []int{6}
+}
+
+func (m *PrimeFactorizationRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_PrimeFactorizationRequest.Unmarshal(m, b)
+}
+func (m *PrimeFactorizationRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_PrimeFactorizationRequest.Marshal(b, m, deterministic)
+}
+func (m *PrimeFactorizationRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_PrimeFactorizationRequest.Merge(m, src)
+}
+func (m *PrimeFactorizationRequest) XXX_Size() int {
+	return xxx_messageInfo_PrimeFactorizationRequest.Size(m)
+}
+func (m *PrimeFactorizationRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_PrimeFactorizationRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_PrimeFactorizationRequest proto.InternalMessageInfo
+
+func (m *PrimeFactorizationRequest) GetNumber() int32 {
+	if m != nil {
+		return m.Number
+	}
+	return 0
+}
+
+type PrimeFactorizationResponse struct {
+	Result               string   `protobuf:"bytes,1,opt,name=result,proto3" json:"result,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *PrimeFactorizationResponse) Reset()         { *m = PrimeFactorizationResponse{} }
+func (m *PrimeFactorizationResponse) String() string { return proto.CompactTextString(m) }
+func (*PrimeFactorizationResponse) ProtoMessage()    {}
+func (*PrimeFactorizationResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_e577c6f8a1944023, []int{7}
+}
+
+func (m *PrimeFactorizationResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_PrimeFactorizationResponse.Unmarshal(m, b)
+}
+func (m *PrimeFactorizationResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_PrimeFactorizationResponse.Marshal(b, m, deterministic)
+}
+func (m *PrimeFactorizationResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_PrimeFactorizationResponse.Merge(m, src)
+}
+func (m *PrimeFactorizationResponse) XXX_Size() int {
+	return xxx_messageInfo_PrimeFactorizationResponse.Size(m)
+}
+func (m *PrimeFactorizationResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_PrimeFactorizationResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_PrimeFactorizationResponse proto.InternalMessageInfo
+
+func (m *PrimeFactorizationResponse) GetResult() string {
+	if m != nil {
+		return m.Result
+	}
+	return ""
+}
+
 func init() {
 	proto.RegisterType((*GCDRequest)(nil), "api.GCDRequest")
 	proto.RegisterType((*GCDResponse)(nil), "api.GCDResponse")
+	proto.RegisterType((*FibonacciRequest)(nil), "api.FibonacciRequest")
+	proto.RegisterType((*FibonacciResponse)(nil), "api.FibonacciResponse")
+	proto.RegisterType((*StatisticsRequest)(nil), "api.StatisticsRequest")
+	proto.RegisterType((*StatisticsResponse)(nil), "api.StatisticsResponse")
+	proto.RegisterType((*PrimeFactorizationRequest)(nil), "api.PrimeFactorizationRequest")
+	proto.RegisterType((*PrimeFactorizationResponse)(nil), "api.PrimeFactorizationResponse")
 }
 
 func init() { proto.RegisterFile("simplemath.proto", fileDescriptor_e577c6f8a1944023) }
 
 var fileDescriptor_e577c6f8a1944023 = []byte{
-	// 172 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x44, 0x8e, 0x31, 0x0b, 0xc2, 0x30,
-	0x10, 0x85, 0xad, 0xd2, 0x0e, 0xe7, 0x60, 0x09, 0x22, 0xc5, 0x49, 0x0a, 0x82, 0x53, 0x07, 0x9d,
-	0x74, 0x6d, 0xa1, 0x93, 0x4b, 0xfd, 0x05, 0x51, 0x4f, 0x1a, 0x68, 0x72, 0x31, 0x97, 0xfa, 0xfb,
-	0xc5, 0xb4, 0xd2, 0xf1, 0x7b, 0xdc, 0xbb, 0xf7, 0x41, 0xca, 0x4a, 0xdb, 0x0e, 0xb5, 0xf4, 0x6d,
-	0x61, 0x1d, 0x79, 0x12, 0x0b, 0x69, 0x55, 0x7e, 0x01, 0xa8, 0xcb, 0xaa, 0xc1, 0x77, 0x8f, 0xec,
-	0xc5, 0x1a, 0xe2, 0x97, 0x72, 0xec, 0xb3, 0x68, 0x17, 0x1d, 0xe2, 0x66, 0x00, 0xb1, 0x81, 0x84,
-	0xf1, 0x41, 0xe6, 0x99, 0xcd, 0x43, 0x3c, 0x52, 0xbe, 0x87, 0x65, 0xe8, 0xb2, 0x25, 0xc3, 0xf8,
-	0x3b, 0x73, 0xc8, 0x7d, 0xf7, 0x6f, 0x8f, 0x74, 0xac, 0x01, 0x6e, 0x61, 0xfb, 0x2a, 0x7d, 0x2b,
-	0xce, 0x20, 0x6a, 0x87, 0xd2, 0x97, 0xa4, 0x35, 0x99, 0x4a, 0x7d, 0x14, 0x93, 0x13, 0xab, 0x42,
-	0x5a, 0x55, 0x4c, 0x26, 0xdb, 0x74, 0x0a, 0x86, 0xf7, 0xf9, 0xec, 0x9e, 0x04, 0xef, 0xd3, 0x37,
-	0x00, 0x00, 0xff, 0xff, 0x6e, 0x54, 0x50, 0x4f, 0xcb, 0x00, 0x00, 0x00,
+	// 360 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x84, 0x53, 0x5d, 0x4b, 0x02, 0x41,
+	0x14, 0x6d, 0x35, 0x8d, 0x6e, 0x41, 0x3a, 0x94, 0x6d, 0xfb, 0x50, 0xb2, 0x10, 0x2c, 0x08, 0x22,
+	0xd9, 0x4b, 0xbd, 0x89, 0xa2, 0x4f, 0x41, 0xe8, 0x63, 0x4f, 0xe3, 0x36, 0xe5, 0x05, 0x67, 0x66,
+	0x9b, 0x99, 0x15, 0xe9, 0x27, 0xf5, 0x2b, 0xc3, 0xd9, 0x1d, 0x57, 0xfc, 0xc0, 0xc7, 0x73, 0xcf,
+	0xb9, 0x67, 0xee, 0x9e, 0xc3, 0x42, 0x4d, 0x23, 0x4f, 0xe6, 0x8c, 0x53, 0x33, 0x6b, 0x27, 0x4a,
+	0x1a, 0x49, 0xca, 0x34, 0xc1, 0xf0, 0x15, 0x60, 0xd4, 0x1f, 0x8c, 0xd9, 0x4f, 0xca, 0xb4, 0x21,
+	0xd7, 0x50, 0xf9, 0x42, 0xa5, 0x8d, 0xef, 0x35, 0xbd, 0xa8, 0x32, 0xce, 0x00, 0x69, 0x40, 0x55,
+	0xb3, 0x58, 0x8a, 0x4f, 0xbf, 0x64, 0xc7, 0x39, 0x0a, 0x1f, 0xe1, 0xc2, 0xee, 0xea, 0x44, 0x0a,
+	0xcd, 0x56, 0x32, 0xc5, 0x74, 0x3a, 0x77, 0xdb, 0x39, 0x0a, 0x23, 0xa8, 0x0d, 0x71, 0x2a, 0x05,
+	0x8d, 0x63, 0xdc, 0x78, 0x28, 0x96, 0xa9, 0x58, 0x3f, 0x64, 0x41, 0xd8, 0x82, 0xfa, 0x86, 0xf2,
+	0x88, 0x6d, 0x0b, 0xea, 0x13, 0x43, 0x0d, 0x6a, 0x83, 0xb1, 0x76, 0xbe, 0x0d, 0xa8, 0x8a, 0x94,
+	0x4f, 0x99, 0x72, 0xe2, 0x0c, 0x85, 0x4b, 0x20, 0x9b, 0xe2, 0xdc, 0x7a, 0xef, 0x15, 0xc4, 0x87,
+	0x33, 0x4e, 0x97, 0xc8, 0x53, 0x9e, 0x7f, 0xaf, 0x83, 0x96, 0x41, 0x61, 0x99, 0x72, 0xce, 0x64,
+	0x70, 0xc5, 0xd0, 0x05, 0x53, 0xf4, 0x9b, 0xf9, 0xa7, 0x4d, 0x2f, 0x2a, 0x8d, 0x1d, 0x0c, 0xbb,
+	0x70, 0xf7, 0xae, 0x90, 0xb3, 0x21, 0x8d, 0x8d, 0x54, 0xf8, 0x4b, 0x0d, 0x4a, 0x71, 0xec, 0xdc,
+	0x67, 0x08, 0xf6, 0x2d, 0xed, 0x4d, 0xe4, 0xdc, 0x25, 0xf2, 0xf4, 0x57, 0x02, 0x98, 0xd8, 0x96,
+	0xdf, 0xa8, 0x99, 0x91, 0x17, 0x20, 0x23, 0xc5, 0xa8, 0xe9, 0x4b, 0xce, 0xa5, 0x18, 0xe0, 0x02,
+	0xb5, 0x54, 0xe4, 0xaa, 0x4d, 0x13, 0x6c, 0x17, 0x9d, 0x07, 0xb5, 0x62, 0x90, 0xf9, 0x87, 0x27,
+	0xa4, 0x07, 0x97, 0x23, 0x66, 0xd6, 0x5d, 0x90, 0x1b, 0xab, 0xd9, 0x6e, 0x31, 0x68, 0x6c, 0x8f,
+	0x9d, 0x41, 0xc7, 0x23, 0x3d, 0x80, 0x22, 0x71, 0x92, 0x29, 0x77, 0xfa, 0x0a, 0x6e, 0x77, 0xe6,
+	0xce, 0x22, 0xf2, 0xc8, 0x07, 0x90, 0xdd, 0x14, 0xc8, 0xbd, 0x5d, 0x39, 0x98, 0x69, 0xf0, 0x70,
+	0x90, 0x2f, 0xac, 0x3b, 0xde, 0xb4, 0x6a, 0x7f, 0x82, 0xee, 0x7f, 0x00, 0x00, 0x00, 0xff, 0xff,
+	0x54, 0x41, 0xbe, 0xfd, 0x18, 0x03, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -148,6 +427,10 @@ const _ = grpc.SupportPackageIsVersion4
 type SimpleMathClient interface {
 	// this is the interface for greatest common divisor
 	GreatCommonDivisor(ctx context.Context, in *GCDRequest, opts ...grpc.CallOption) (*GCDResponse, error)
+	// Fibonacc
+	GetFibonacci(ctx context.Context, in *FibonacciRequest, opts ...grpc.CallOption) (SimpleMath_GetFibonacciClient, error)
+	Statistics(ctx context.Context, opts ...grpc.CallOption) (SimpleMath_StatisticsClient, error)
+	PrimeFactorization(ctx context.Context, opts ...grpc.CallOption) (SimpleMath_PrimeFactorizationClient, error)
 }
 
 type simpleMathClient struct {
@@ -167,10 +450,111 @@ func (c *simpleMathClient) GreatCommonDivisor(ctx context.Context, in *GCDReques
 	return out, nil
 }
 
+func (c *simpleMathClient) GetFibonacci(ctx context.Context, in *FibonacciRequest, opts ...grpc.CallOption) (SimpleMath_GetFibonacciClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_SimpleMath_serviceDesc.Streams[0], "/api.SimpleMath/GetFibonacci", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &simpleMathGetFibonacciClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type SimpleMath_GetFibonacciClient interface {
+	Recv() (*FibonacciResponse, error)
+	grpc.ClientStream
+}
+
+type simpleMathGetFibonacciClient struct {
+	grpc.ClientStream
+}
+
+func (x *simpleMathGetFibonacciClient) Recv() (*FibonacciResponse, error) {
+	m := new(FibonacciResponse)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+func (c *simpleMathClient) Statistics(ctx context.Context, opts ...grpc.CallOption) (SimpleMath_StatisticsClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_SimpleMath_serviceDesc.Streams[1], "/api.SimpleMath/Statistics", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &simpleMathStatisticsClient{stream}
+	return x, nil
+}
+
+type SimpleMath_StatisticsClient interface {
+	Send(*StatisticsRequest) error
+	CloseAndRecv() (*StatisticsResponse, error)
+	grpc.ClientStream
+}
+
+type simpleMathStatisticsClient struct {
+	grpc.ClientStream
+}
+
+func (x *simpleMathStatisticsClient) Send(m *StatisticsRequest) error {
+	return x.ClientStream.SendMsg(m)
+}
+
+func (x *simpleMathStatisticsClient) CloseAndRecv() (*StatisticsResponse, error) {
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	m := new(StatisticsResponse)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+func (c *simpleMathClient) PrimeFactorization(ctx context.Context, opts ...grpc.CallOption) (SimpleMath_PrimeFactorizationClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_SimpleMath_serviceDesc.Streams[2], "/api.SimpleMath/PrimeFactorization", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &simpleMathPrimeFactorizationClient{stream}
+	return x, nil
+}
+
+type SimpleMath_PrimeFactorizationClient interface {
+	Send(*PrimeFactorizationRequest) error
+	Recv() (*PrimeFactorizationResponse, error)
+	grpc.ClientStream
+}
+
+type simpleMathPrimeFactorizationClient struct {
+	grpc.ClientStream
+}
+
+func (x *simpleMathPrimeFactorizationClient) Send(m *PrimeFactorizationRequest) error {
+	return x.ClientStream.SendMsg(m)
+}
+
+func (x *simpleMathPrimeFactorizationClient) Recv() (*PrimeFactorizationResponse, error) {
+	m := new(PrimeFactorizationResponse)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
 // SimpleMathServer is the server API for SimpleMath service.
 type SimpleMathServer interface {
 	// this is the interface for greatest common divisor
 	GreatCommonDivisor(context.Context, *GCDRequest) (*GCDResponse, error)
+	// Fibonacc
+	GetFibonacci(*FibonacciRequest, SimpleMath_GetFibonacciServer) error
+	Statistics(SimpleMath_StatisticsServer) error
+	PrimeFactorization(SimpleMath_PrimeFactorizationServer) error
 }
 
 // UnimplementedSimpleMathServer can be embedded to have forward compatible implementations.
@@ -179,6 +563,15 @@ type UnimplementedSimpleMathServer struct {
 
 func (*UnimplementedSimpleMathServer) GreatCommonDivisor(ctx context.Context, req *GCDRequest) (*GCDResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GreatCommonDivisor not implemented")
+}
+func (*UnimplementedSimpleMathServer) GetFibonacci(req *FibonacciRequest, srv SimpleMath_GetFibonacciServer) error {
+	return status.Errorf(codes.Unimplemented, "method GetFibonacci not implemented")
+}
+func (*UnimplementedSimpleMathServer) Statistics(srv SimpleMath_StatisticsServer) error {
+	return status.Errorf(codes.Unimplemented, "method Statistics not implemented")
+}
+func (*UnimplementedSimpleMathServer) PrimeFactorization(srv SimpleMath_PrimeFactorizationServer) error {
+	return status.Errorf(codes.Unimplemented, "method PrimeFactorization not implemented")
 }
 
 func RegisterSimpleMathServer(s *grpc.Server, srv SimpleMathServer) {
@@ -203,6 +596,79 @@ func _SimpleMath_GreatCommonDivisor_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _SimpleMath_GetFibonacci_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(FibonacciRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(SimpleMathServer).GetFibonacci(m, &simpleMathGetFibonacciServer{stream})
+}
+
+type SimpleMath_GetFibonacciServer interface {
+	Send(*FibonacciResponse) error
+	grpc.ServerStream
+}
+
+type simpleMathGetFibonacciServer struct {
+	grpc.ServerStream
+}
+
+func (x *simpleMathGetFibonacciServer) Send(m *FibonacciResponse) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func _SimpleMath_Statistics_Handler(srv interface{}, stream grpc.ServerStream) error {
+	return srv.(SimpleMathServer).Statistics(&simpleMathStatisticsServer{stream})
+}
+
+type SimpleMath_StatisticsServer interface {
+	SendAndClose(*StatisticsResponse) error
+	Recv() (*StatisticsRequest, error)
+	grpc.ServerStream
+}
+
+type simpleMathStatisticsServer struct {
+	grpc.ServerStream
+}
+
+func (x *simpleMathStatisticsServer) SendAndClose(m *StatisticsResponse) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func (x *simpleMathStatisticsServer) Recv() (*StatisticsRequest, error) {
+	m := new(StatisticsRequest)
+	if err := x.ServerStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+func _SimpleMath_PrimeFactorization_Handler(srv interface{}, stream grpc.ServerStream) error {
+	return srv.(SimpleMathServer).PrimeFactorization(&simpleMathPrimeFactorizationServer{stream})
+}
+
+type SimpleMath_PrimeFactorizationServer interface {
+	Send(*PrimeFactorizationResponse) error
+	Recv() (*PrimeFactorizationRequest, error)
+	grpc.ServerStream
+}
+
+type simpleMathPrimeFactorizationServer struct {
+	grpc.ServerStream
+}
+
+func (x *simpleMathPrimeFactorizationServer) Send(m *PrimeFactorizationResponse) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func (x *simpleMathPrimeFactorizationServer) Recv() (*PrimeFactorizationRequest, error) {
+	m := new(PrimeFactorizationRequest)
+	if err := x.ServerStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
 var _SimpleMath_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "api.SimpleMath",
 	HandlerType: (*SimpleMathServer)(nil),
@@ -212,6 +678,23 @@ var _SimpleMath_serviceDesc = grpc.ServiceDesc{
 			Handler:    _SimpleMath_GreatCommonDivisor_Handler,
 		},
 	},
-	Streams:  []grpc.StreamDesc{},
+	Streams: []grpc.StreamDesc{
+		{
+			StreamName:    "GetFibonacci",
+			Handler:       _SimpleMath_GetFibonacci_Handler,
+			ServerStreams: true,
+		},
+		{
+			StreamName:    "Statistics",
+			Handler:       _SimpleMath_Statistics_Handler,
+			ClientStreams: true,
+		},
+		{
+			StreamName:    "PrimeFactorization",
+			Handler:       _SimpleMath_PrimeFactorization_Handler,
+			ServerStreams: true,
+			ClientStreams: true,
+		},
+	},
 	Metadata: "simplemath.proto",
 }
