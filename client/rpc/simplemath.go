@@ -11,10 +11,12 @@ import (
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
+	"google.golang.org/grpc/metadata"
 )
 
 const (
-	address = "localhost:50051"
+	address         = "localhost:50051"
+	timestampFormat = time.StampNano
 )
 
 // AuthItem holds the username/password
@@ -39,7 +41,7 @@ func (a *AuthItem) RequireTransportSecurity() bool {
 func getGRPCConn() (conn *grpc.ClientConn, err error) {
 	// Setup the username/password
 	auth := AuthItem{
-		Username: "valineliu_abc",
+		Username: "valineliu",
 		Password: "root",
 	}
 	creds, err := credentials.NewClientTLSFromFile("../cert/server.crt", "")
@@ -85,16 +87,39 @@ func GreatCommonDivisor(first, second string) {
 		log.Fatalf("did not connect: %v", err)
 	}
 	defer conn.Close()
-	c := pb.NewSimpleMathClient(conn)
 	a, _ := strconv.ParseInt(first, 10, 32)
 	b, _ := strconv.ParseInt(second, 10, 32)
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 120*time.Second)
+	// sending metadata to server: create a new context with some metadata
+	currTime := time.Now().Format(timestampFormat)
+	log.Printf(" Test by Yjiang. %s", currTime)
+
+	ctx = metadata.AppendToOutgoingContext(ctx, "timestamp", currTime)
+	ctx = metadata.AppendToOutgoingContext(ctx, "timestamp", "yjiang")
 	defer cancel()
-	r, err := c.GreatCommonDivisor(ctx, &pb.GCDRequest{First: int32(a), Second: int32(b)})
+	rsp := pb.GCDResponse{}
+
+	var header, trailer metadata.MD
+	err = conn.Invoke(ctx, "/api.SimpleMath/GreatCommonDivisor", &pb.GCDRequest{First: int32(a), Second: int32(b)}, &rsp, grpc.Header(&header), grpc.Trailer(&trailer))
 	if err != nil {
 		log.Fatalf("could not compute: %v", err)
 	}
-	log.Printf("The Greatest Common Divisor of %d and %d is %d", a, b, r.Result)
+
+	// receiving metadata from server: get the Header and Trailer metadata
+	if t, ok := header["timestamp"]; ok {
+		log.Printf("timestamp from header: ")
+		for i, e := range t {
+			log.Printf(" %d. %s", i, e)
+		}
+	}
+	if t, ok := trailer["timestamp"]; ok {
+		log.Printf("timestamp from trailer: ")
+		for i, e := range t {
+			log.Printf(" %d. %s", i, e)
+		}
+	}
+
+	log.Printf("The Greatest Common Divisor of %d and %d is %d", a, b, rsp.Result)
 }
 
 // Statistics method
@@ -136,6 +161,7 @@ func Statistics(count string) {
 	log.Printf("Avg: %f\n", result.Average)
 }
 
+// PrimeFactorization method
 func PrimeFactorization(count string) {
 	conn, err := getGRPCConn()
 	if err != nil {
@@ -143,7 +169,9 @@ func PrimeFactorization(count string) {
 	}
 	defer conn.Close()
 	client := pb.NewSimpleMathClient(conn)
-	stream, err := client.PrimeFactorization(context.Background())
+	// sending metadata to server: create a new context with some metadata
+	ctx := metadata.AppendToOutgoingContext(context.Background(), "timestamp", time.Now().Format(timestampFormat))
+	stream, err := client.PrimeFactorization(ctx)
 	if err != nil {
 		log.Fatalf("failed to compute: %v", err)
 	}
@@ -153,14 +181,23 @@ func PrimeFactorization(count string) {
 		for {
 			in, err := stream.Recv()
 			if err == io.EOF {
-				close(waitc)
-				return
+				break
 			}
 			if err != nil {
 				log.Fatalf("failed to recv: %v", err)
 			}
 			log.Printf(in.Result)
 		}
+		time.Sleep(10 * time.Second)
+		// receiving metadata from server: read trailer
+		trailer := stream.Trailer()
+		if t, ok := trailer["timestamp"]; ok {
+			log.Printf("timestamp from trailer: ")
+			for i, e := range t {
+				log.Printf(" %d. %s", i, e)
+			}
+		}
+		close(waitc)
 	}()
 
 	num, _ := strconv.ParseInt(count, 10, 32)
@@ -168,6 +205,17 @@ func PrimeFactorization(count string) {
 	var nums []int
 	for i := 0; i < int(num); i++ {
 		nums = append(nums, r.Intn(1000))
+	}
+	// receiving metadata from server: read header
+	header, err := stream.Header()
+	if err != nil {
+		log.Fatalf("failed to read header from stream: %v", err)
+	}
+	if t, ok := header["timestamp"]; ok {
+		log.Printf("timestamp from header: ")
+		for i, e := range t {
+			log.Printf(" %d. %s", i, e)
+		}
 	}
 	for _, n := range nums {
 		if err := stream.Send(&pb.PrimeFactorizationRequest{Number: int32(n)}); err != nil {

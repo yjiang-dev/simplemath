@@ -4,10 +4,17 @@ import (
 	"io"
 	"log"
 	"strconv"
+	"time"
 
 	pb "github.com/yjiang-dev/simplemath/api"
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/metadata"
 
 	"golang.org/x/net/context"
+)
+
+const (
+	timestampFormat = time.StampNano
 )
 
 // SimpleMathServer a struct type
@@ -15,11 +22,29 @@ type SimpleMathServer struct{}
 
 // GreatCommonDivisor GCD
 func (sms *SimpleMathServer) GreatCommonDivisor(ctx context.Context, in *pb.GCDRequest) (*pb.GCDResponse, error) {
+	// sending metadata to client: create trailer, using defer to record timestamp of function return
+	defer func() {
+		trailer := metadata.Pairs("timestamp", time.Now().Format(timestampFormat))
+		grpc.SetTrailer(ctx, trailer)
+	}()
+
+	// receiving metadata from client: get metadata from context
+	md, _ := metadata.FromIncomingContext(ctx)
+	if t, ok := md["timestamp"]; ok {
+		log.Printf("timestamp from metadata: ")
+		for i, e := range t {
+			log.Printf(" %d. %s", i, e)
+		}
+	}
+
 	first := in.First
 	second := in.Second
 	for second != 0 {
 		first, second = second, first%second
 	}
+	// sending metadata to client: create and send header
+	header := metadata.New(map[string]string{"timestamp": time.Now().Format(timestampFormat)})
+	grpc.SendHeader(ctx, header)
 	return &pb.GCDResponse{Result: first}, nil
 }
 
@@ -68,6 +93,23 @@ func (sms *SimpleMathServer) Statistics(stream pb.SimpleMath_StatisticsServer) e
 
 // PrimeFactorization method
 func (sms *SimpleMathServer) PrimeFactorization(stream pb.SimpleMath_PrimeFactorizationServer) error {
+	// sending metadata to client: create trailer, using defer to record timestamp of function return
+	defer func() {
+		trailer := metadata.Pairs("timestamp", time.Now().Format(timestampFormat))
+		stream.SetTrailer(trailer)
+	}()
+
+	// receiving metadata from client: read metadata from client
+	md, _ := metadata.FromIncomingContext(stream.Context())
+	if t, ok := md["timestamp"]; ok {
+		log.Printf("timestamp from metadata:")
+		for i, e := range t {
+			log.Printf(" %d. %s", i, e)
+		}
+	}
+	// sending metadata to client: create and send header
+	header := metadata.New(map[string]string{"timestamp": time.Now().Format(timestampFormat)})
+	stream.SendHeader(header)
 	for {
 		in, err := stream.Recv()
 		if err == io.EOF {

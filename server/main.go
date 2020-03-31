@@ -48,6 +48,20 @@ func unaryInterceptor(ctx context.Context, req interface{}, info *grpc.UnaryServ
 	return handler(ctx, req)
 }
 
+func streamInterceptor(srv interface{}, ss grpc.ServerStream, info *grpc.StreamServerInfo, handler grpc.StreamHandler) error {
+	ctx := ss.Context()
+
+	clientID, err := authenticateClient(ctx)
+	if err != nil {
+		return err
+	}
+
+	log.Printf("clent id: %s", clientID)
+	handler(srv, ss)
+
+	return nil
+}
+
 func main() {
 	lis, err := net.Listen("tcp", port)
 	if err != nil {
@@ -59,7 +73,7 @@ func main() {
 		log.Fatalf("could not load TLS keys: %s", err)
 	}
 	// Create an array of gRPC options with the credentials
-	opts := []grpc.ServerOption{grpc.Creds(creds), grpc.UnaryInterceptor(unaryInterceptor)}
+	opts := []grpc.ServerOption{grpc.Creds(creds), grpc.UnaryInterceptor(unaryInterceptor), grpc.StreamInterceptor(streamInterceptor)}
 
 	// create a gRPC server object with server options(opts)
 	s := grpc.NewServer(opts...)
